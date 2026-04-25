@@ -1,81 +1,131 @@
 ---
 title: "AI agents are interesting, but mine still need babysitting"
 date: "2025-12-27"
-excerpt: "After trying agent workflows for six weeks, I’m less cynical than before, but definitely less impressed too."
+excerpt: "After six weeks building small agent workflows, I trust them more for narrow tasks and less for unsupervised end-to-end execution."
 tags:
   - ai-agents
   - reliability
   - personal-observations
 ---
 
-I went into this month with two extreme opinions fighting in my head:
+I started this month with two opposite opinions, and honestly both were wrong.
 
-- "Agents are overhyped wrappers around tool calls."
-- "Agents will replace huge chunks of white-collar workflows soon."
+- Opinion A: agents are mostly hype and demos.
+- Opinion B: agents will replace full knowledge workflows very soon.
 
-After actually building and testing a few mini agent loops, I landed in the boring middle.
+After building and testing several small agent loops, the conclusion was less exciting and more useful:
 
-Agents are useful. But unattended reliability is still far from where the hype suggests.
+Agents are genuinely helpful in constrained workflows.
+Agents are still unreliable when left unsupervised on multi-step tasks with real consequences.
 
 ## Where agents genuinely helped me
 
-I built one agent for research triage: collect sources, summarize differences, produce a short position note.
+The most useful agent I built handled research triage:
 
-When scoped tightly, it saved me real time. Especially on repetitive subtasks like:
+1. collect source links,
+2. extract key claims,
+3. produce a short comparison note.
 
-- extracting key claims from 5-6 articles,
-- normalizing them into one format,
-- drafting a first-pass comparison.
+When the task boundaries were strict, it saved real time. Especially for repetitive steps like:
 
-I don't want to undersell that. It was enough value to keep using it.
+- extracting claims from 5-8 documents,
+- normalizing to one template,
+- drafting a first-pass summary.
+
+I kept using it because the time savings were obvious.
+
+The key phrase is "when boundaries were strict." That part matters.
 
 ## Where things broke in annoying ways
 
-The failure pattern wasn't dramatic errors. It was brittle execution.
+Most failures were not dramatic hallucinations. They were brittle execution failures.
 
-Examples from my logs:
+From my logs, common break patterns were:
 
-- Tool call order drifted after one unexpected response shape.
-- The agent retried the wrong step instead of recovering context.
-- It confidently completed a workflow while silently skipping one required check.
+- Tool sequence drift after one malformed API response.
+- Repeating the wrong retry path instead of moving to fallback.
+- Claiming completion while silently skipping one required validation.
+- Losing objective after long tool traces and switching to a nearby task.
 
-This is the part most demo videos ignore. A workflow can look 90% done and still be unusable because the missing 10% is the compliance or validation step.
+This is the part glossy demos skip. A workflow can be 90% complete and still useless because the missing 10% is the legal, finance, or compliance check.
+
+In real products, that 10% is usually the expensive part.
 
 ## Why this happens (my best guess)
 
-I think agents stack uncertainty across layers:
+I think agents stack uncertainty across multiple layers:
 
-1. model reasoning uncertainty,
-2. tool interface uncertainty,
-3. environment uncertainty,
+1. model interpretation uncertainty,
+2. tool contract uncertainty,
+3. runtime environment uncertainty,
 4. objective ambiguity.
 
-Any one layer can be manageable. Together, they amplify small mistakes.
+Each layer is manageable alone. Combined, they multiply failure probability.
 
-I initially thought better model intelligence alone would solve this. Now I think orchestration design and guardrails matter just as much.
+I initially thought stronger base models would fix most of this. They helped, but orchestration quality and guardrails mattered just as much.
+
+## What improved reliability in practice
+
+The improvements that worked were very boring engineering choices:
+
+- Strict typed schemas for every tool.
+- Explicit step state machine, not freeform loops.
+- Hard stop conditions and max retry budgets.
+- Mandatory verification checkpoint before final output.
+- Human confirmation for high-risk actions.
+
+None of this feels like "autonomous AI future." It does feel like software that fails less.
+
+## A concrete design pattern that helped
+
+For one workflow, I moved from a single freeform agent to this split:
+
+- Planner: produce short plan with step IDs.
+- Executor: perform one step at a time.
+- Verifier: confirm each required artifact exists.
+- Finalizer: assemble response only after verifier pass.
+
+That architecture reduced silent misses dramatically.
+
+The tradeoff was a little more latency. Worth it.
 
 ## What made my agent less flaky
 
-The biggest improvements came from boring engineering:
+The biggest mental shift for me was changing the target from "fully autonomous" to "reliably collaborative."
 
-- strict typed tool schemas,
-- step-by-step state logs,
-- explicit "done criteria" per stage,
-- cheap verifier pass before final output.
+In other words:
 
-Not glamorous, but reliability jumped.
+- agent does repetitive heavy lifting,
+- human approves critical transitions,
+- system logs every important decision.
 
-Also, I stopped pretending "fully autonomous" was the right goal. Human-in-the-loop checkpoints on high-impact steps made the system feel way more practical.
+That setup is less flashy and much more usable.
+
+## Where I would deploy agents today
+
+I would deploy now for:
+
+- research triage,
+- structured drafting,
+- internal data retrieval and summarization,
+- controlled back-office automations with clear checks.
+
+I would be cautious for:
+
+- unsupervised external actions,
+- workflows with legal/compliance risk,
+- irreversible transactions without human gatekeeping.
 
 ## Closing thought
 
-My contrarian take now is simple: the winning agent products in the near term may look less autonomous than expected.
+My current take is simple: near-term winning agent products may look less autonomous than people expect.
 
-They will probably be collaborative systems with sharp boundaries, not magical co-workers running free.
+They will probably be collaborative systems with clear boundaries, robust logs, and selective human approvals.
 
-And honestly, that's fine. Useful + predictable beats autonomous + fragile.
+And that is fine. Useful plus predictable beats autonomous plus fragile.
 
 ### Light references
 
-- Anthropic, *Building Effective Agents* (engineering blog, 2024).
-- OpenAI and ecosystem agent framework implementation notes (2025 updates across SDK docs).
+- Anthropic, Building Effective Agents (2024).
+- OpenAI function/tool calling implementation docs and agent patterns (2025).
+- Public engineering writeups from LangGraph and AutoGen ecosystem teams (2025).

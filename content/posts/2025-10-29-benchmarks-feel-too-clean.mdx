@@ -1,64 +1,130 @@
 ---
 title: "AI benchmarks feel too clean compared to real use"
 date: "2025-10-29"
-excerpt: "I like benchmarks, but the way we use them in product conversations is kind of broken."
+excerpt: "Benchmarks are useful, but I learned the hard way that product failures often come from things benchmarks never test."
 tags:
   - evaluation
   - llms
   - research-simplified
 ---
 
-I have a love-hate relationship with benchmarks.
+I still use benchmarks. I am not anti-benchmark.
 
-Love, because without them we would just argue vibes.
-Hate, because product teams keep treating benchmark ranks like deployment guarantees.
+But I do not trust them the way I used to.
 
-This part confused me for a while. I kept seeing models that looked strong on public evals but behaved weirdly in messy prompts from actual users. Not catastrophically wrong. Just... brittle in ways the benchmark never surfaced.
+The old mindset was simple: if Model X is top on a leaderboard, we are safer picking it.
+
+After a few months of building and testing small AI features, I realized that confidence was too optimistic. Models can look excellent on clean public tests and still break in product-shaped situations.
+
+Not with dramatic nonsense. More with quiet, annoying brittleness.
+
+## Why the gap exists
+
+Most public benchmarks are clean by design:
+
+- clear prompt,
+- clear objective,
+- clear scoring rule.
+
+Real usage is messy by default:
+
+- users combine multiple goals in one message,
+- context is incomplete,
+- constraints change mid-task,
+- typos and vague references are common.
+
+A model that is great in controlled conditions can feel weak in these mixed-intent settings.
+
+That is not benchmark fraud. It is benchmark scope.
 
 ## Clean tasks vs messy intent
 
-Most benchmark tasks are cleanly scoped. A user prompt is not.
+One pattern I see often: users ask for planning + writing + analysis in one turn.
 
-In real usage, people:
+Example prompt shape from my notes:
 
-- mix three tasks in one prompt,
-- provide half context,
-- change requirements midway,
-- assume the model remembers things it doesn't.
+"Summarize this article, pull out business risks, and rewrite it as a short pitch for a non-technical founder. Keep it under 180 words."
 
-When that happens, minor weaknesses become major UX issues. A model that is +5 points on a benchmark may still feel worse if it fails gracefully less often.
+This is not one task. It is three linked tasks with style constraints.
 
-I initially thought benchmark mismatch was just prompt quality. Now I think that is only half true.
+Many benchmark setups do not capture that kind of composition pressure.
+
+So we end up with a weird result:
+
+- a model can score higher overall,
+- but still require more retries in real workflows.
+
+Retries are expensive. They increase latency, cost, and user frustration.
 
 ## The leaderboard incentive problem
 
-If companies optimize hard for known public tests, we get two side effects:
+There is also an incentive issue nobody likes to admit.
 
-- Overfitting to benchmark patterns.
-- Underinvestment in "annoying" failures that users actually notice.
+When leaderboard position drives attention, teams naturally optimize for known tests. That is understandable. But it creates side effects:
 
-The hidden failure mode is not obvious hallucinations anymore. It's false confidence with plausible formatting. You get output that looks complete but misses one critical assumption. In startup settings, that is often worse than a clearly bad answer because the team trusts it.
+1. Less energy goes into hard-to-measure real-world failure modes.
+2. Some benchmark gains do not transfer proportionally to product reliability.
 
-## What I now test before trusting a model
+The worst failure class I keep seeing is "polished wrongness":
 
-I keep a tiny personal eval pack. Nothing fancy, just repeatable checks that reflect my own workflows:
+- answer looks complete,
+- tone sounds confident,
+- one hidden assumption is wrong,
+- users trust it because presentation quality is high.
 
-1. Ambiguous instruction handling: does it ask a useful clarifying question?
-2. Constraint memory: can it retain exact formatting constraints across long outputs?
-3. Recovery behavior: if I point out one mistake, does it patch only that part or rewrite everything randomly?
-4. "No answer" quality: when uncertain, does it communicate limits without collapsing?
+This is usually more dangerous than obvious nonsense.
 
-This gets me more signal than a single benchmark score.
+## What I now test before trusting a model in product
 
-## Why this matters for AI startups
+I keep a small eval pack that is intentionally not elegant. It has ugly prompts, conflicting constraints, partial context, and correction loops.
 
-A lot of AI startup differentiation right now is not model access. It is evaluation discipline.
+My current checklist:
 
-Teams that build product-shaped eval loops move faster because they stop debating abstract quality and start tracking concrete failure classes. That becomes a defensibility layer over time. It's not flashy, but it compounds.
+1. Clarification behavior: does the model ask a smart question when the task is underspecified?
+2. Constraint memory: does it preserve exact formatting limits over long outputs?
+3. Repair precision: when corrected, does it patch only the broken part?
+4. Uncertainty quality: if unsure, does it communicate limits clearly instead of bluffing?
+5. Mixed-goal handling: can it solve multiple linked asks without dropping one?
 
-So yes, benchmark improvements are real and important. But when I hear "Model X is #1, so we're safe," I mentally translate it to: "We have not done enough scenario testing yet."
+I do not score this with one giant number. I track failure categories. That gives better product signal.
+
+## A simple three-layer eval stack
+
+If you are building an AI product, this structure is practical:
+
+- Layer 1: Public benchmark awareness
+Purpose: broad model selection.
+
+- Layer 2: Product-specific golden set
+Purpose: stable regression checks on your core tasks.
+
+- Layer 3: Live shadow set from anonymized real prompts
+Purpose: catch new breakages before users feel them.
+
+This sounds more work than a single leaderboard screenshot. It is. But it pays back quickly when traffic grows.
+
+## Why this matters for startups
+
+In 2025 and now heading into 2026, many startups have access to similar base models. Differentiation is shifting toward execution quality.
+
+Execution quality is mostly evaluation discipline:
+
+- catching failures earlier,
+- shipping fewer regressions,
+- learning faster from real usage.
+
+That is not flashy. It is defensible.
+
+## Closing thought
+
+I still check leaderboards. I just treat them as the start of model evaluation, not the end.
+
+If your product runs in the real world, your best benchmark is still real-world behavior.
+
+And that benchmark is messy on purpose.
 
 ### Light references
 
-- DeepSeek-AI, *DeepSeek-R1* (arXiv, 2025) for reasoning gains and evaluation discussions.
-- LMSYS Chatbot Arena methodology notes and leaderboard updates (2025).
+- Liang et al., HELM framework for language model evaluation.
+- LMSYS Chatbot Arena methodology and release notes (2025).
+- SWE-bench and related real-task benchmark discussions (2024-2025).

@@ -1,60 +1,94 @@
 ---
 title: "I’m pretty sure evals are now the real bottleneck"
 date: "2026-02-19"
-excerpt: "Model progress is real, but my confidence in deployments still bottlenecks at one thing: evaluation quality."
+excerpt: "Model quality improved fast, but deployment confidence did not. The gap is mostly evaluation quality, not model availability."
 tags:
   - evaluation
   - reliability
   - under-discussed
 ---
 
-A few months ago my mental bottleneck was model capability.
+A few months back, my bottleneck was model capability.
 
-Now it is eval quality. By far.
+Now it is evaluation quality, and it is not even close.
 
-I can get useful outputs from almost every frontier model for many tasks. The harder question is: when should I trust the system without manually checking every answer?
+I can get useful outputs from most strong models for many tasks. The hard part is deciding when I can trust outputs without manually checking everything.
 
 That trust boundary is an evaluation problem, not a model problem.
 
 ## Why this shifted for me
 
-In side projects and internships, I kept seeing the same timeline:
+Across side projects and internship work, I kept seeing the same timeline:
 
-- model demo looked great,
-- pilot looked promising,
-- scale-up exposed weird edge cases,
-- team spent weeks patching reliability instead of building features.
+- model demo looks excellent,
+- pilot feels promising,
+- scale reveals edge failures,
+- team spends weeks patching trust issues.
 
-The model wasn't "bad." We just hadn't measured the right risks upfront.
+Usually the model was not "bad." We just measured the wrong things before launch.
 
 ## The eval gap is mostly about realism
 
-A lot of eval setups still over-index on static correctness benchmarks.
+Most teams over-index on static correctness checks because they are easy to run and easy to explain.
 
-Useful, yes. Sufficient, no.
+Useful? Yes.
+Sufficient? No.
 
 Production systems need broader checks:
 
-- robustness to ambiguous inputs,
-- behavior under tool failures,
-- calibration under uncertainty,
-- consistency across long interactions,
-- failure recovery quality.
+- robustness to ambiguous prompts,
+- behavior when tools return malformed data,
+- uncertainty communication quality,
+- consistency across long sessions,
+- failure recovery behavior.
 
-This part is less fun than model comparisons, so teams postpone it.
+None of this is glamorous, which is exactly why teams delay it.
 
-Then they pay the cost later in user trust.
+Then they pay later through regressions and user trust loss.
+
+## What I changed in my own process
+
+I now maintain two eval collections for every recurring workflow:
+
+1. Core set
+Stable tasks that represent the product's main jobs.
+
+2. Chaos set
+Messy real-world prompts with contradictions, missing context, and typos.
+
+The chaos set is intentionally ugly. That is the point.
+
+If a system only performs on clean prompts, I treat that as an early warning, not a success signal.
 
 ## The thing I changed in my own workflow
 
-I now keep two eval sets for every recurring AI task I care about:
+I also started logging failures by category, not only pass/fail:
 
-1. **Core set:** stable, versioned tasks for regression tracking.
-2. **Chaos set:** messy edge cases collected from real interactions.
+- scope misunderstanding,
+- wrong assumptions,
+- format drift,
+- tool-handling failure,
+- confidence miscalibration.
 
-The chaos set is ugly. Some prompts are badly written. Some are contradictory. Perfect.
+This one change improved debugging speed a lot because the fix path becomes obvious.
 
-If a model handles only clean inputs, I treat that as an early warning.
+## A simple deployment eval stack
+
+If I had to recommend one practical setup for small teams, it would be:
+
+- Pre-release checks
+Run core + chaos sets before each release.
+
+- Shadow mode checks
+Run candidate model/path in parallel on live traffic without user impact.
+
+- Online monitoring
+Track complaint rates, correction rates, and high-risk failure categories.
+
+- Regression alarms
+Block release when critical categories spike.
+
+This is not fancy research infrastructure. It is a realistic baseline.
 
 ## Why this might be the next startup moat
 
@@ -66,13 +100,20 @@ I used to think this was "tooling around the main event." I no longer think that
 
 If models commoditize further, evaluation and assurance become the trust layer everyone needs.
 
+I used to think this was secondary tooling. Now I think this layer captures a lot of durable value.
+
+In regulated domains, it is not optional anyway.
+
 ## Closing thought
 
-The real bottleneck in 2026 might be not "can models do it?" but "can organizations know when models fail before users do?"
+The real bottleneck in 2026 may not be "can models do the task?"
+
+It may be "can teams detect failure early enough to protect user trust?"
 
 That is less dramatic than AGI discourse, but probably more economically important in the near term.
 
 ### Light references
 
-- DeepSeek-AI, *DeepSeek-R1* (arXiv, 2025) discussion threads on eval strengths/limits.
-- METR and independent eval community writeups on long-horizon task performance (2025).
+- METR and independent long-horizon task reliability discussions (2025).
+- LMSYS methodology notes and real-user evaluation dynamics.
+- Public engineering posts on evaluation pipelines from leading AI product teams (2025).

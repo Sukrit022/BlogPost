@@ -1,50 +1,80 @@
 ---
 title: "Most AI wrappers won’t last, but that doesn’t mean apps are dead"
 date: "2026-02-02"
-excerpt: "I used to say 'wrapper' like an insult. Now I think the better split is replaceable wrapper vs embedded workflow product."
+excerpt: "I used to dismiss AI apps as wrappers. That was lazy. The useful split is not wrapper vs non-wrapper, it is replaceable vs embedded."
 tags:
   - startups
   - contrarian
   - product
 ---
 
-I hear "it's just a wrapper" so often that it stopped being informative.
+"It is just a wrapper" became the easiest way to sound smart in AI conversations.
 
-A wrapper around what? For whom? With what switching cost?
+I used that phrase too, and I was often wrong.
 
-This is one place where I changed my mind over the last six months. I used to dismiss most app-layer AI products quickly. Now I think that was lazy. Some are fragile. Some are quietly building strong moats.
+The phrase hides the real question:
+
+Can users switch away from your product tomorrow without pain?
+
+If yes, you are fragile.
+If no, you may have real defensibility even if you started as a wrapper.
+
+This is one of the biggest opinion changes I had over the last six months.
 
 ## Replaceable wrappers have a pattern
 
 The weak pattern usually looks like this:
 
-- single-shot generation task,
-- no workflow memory,
-- no proprietary feedback loop,
-- no integration into a business-critical stack.
+- Single-shot text generation.
+- No memory of user workflow context.
+- No improvement loop from user corrections.
+- No integration into high-friction systems.
 
 If that's your product, model upgrades from a large provider can wipe out your differentiation in one release cycle.
+
+I have seen this happen fast. A team launches a nice AI helper. Two months later, model providers add similar capability natively. User value collapses.
 
 ## Durable AI apps look different
 
 The stronger pattern is less flashy:
 
-- deeply embedded in existing workflow,
-- captures user corrections and turns them into better defaults,
-- handles reliability and exception paths,
-- owns a distribution channel users already trust.
+- Deeply embedded in a painful workflow.
+- Learns from user edits and corrections.
+- Handles exceptions and edge cases, not only happy-path prompts.
+- Lives in channels users already open daily.
 
 At that point, the model becomes a component, not the product.
 
 This is exactly how infrastructure value gets created in other software categories too. AI just makes the pace faster.
 
+## Two examples that clarified this for me
+
+Example A: generic meeting summary app
+
+- input: transcript,
+- output: summary,
+- little context retention,
+- easy to replace.
+
+Example B: vertical compliance copilot for a specific operations team
+
+- integrated into internal systems,
+- knows approval flow,
+- tracks policy versions,
+- saves audit history,
+- escalates edge cases.
+
+Both "wrap" a model. Only one is likely to be sticky.
+
 ## The hidden moat: operational context
 
-Not many people are talking about this enough: operational context is hard to replicate.
+The moat I underestimated most was operational context.
 
 If your system knows how a specific team works, what constraints matter, which approvals are required, and where errors are expensive, you are no longer a thin wrapper. You are workflow intelligence.
 
 That context accumulates through usage, not through model size.
+
+And this matters because context quality compounds. Every correction, exception, and policy change makes the product harder to copy.
 
 ## Practical checklist I use now
 
@@ -57,15 +87,24 @@ When evaluating an AI startup idea, I ask:
 
 If the honest answer to #4 is yes, trouble.
 
+I also ask one extra question now:
+
+What breaks for the customer if they uninstall this tomorrow?
+
+If nothing breaks, pricing power will eventually break.
+
 ## Closing thought
 
 So yes, most generic wrappers probably won't survive. But AI apps as a category are not the problem.
 
 The problem is shallow product strategy pretending model access is a moat.
 
-I think the next wave of winners will look boring at first glance and very sticky after six months of usage.
+The winners may look boring in a demo and indispensable after six months of real use.
+
+That is usually a good sign.
 
 ### Light references
 
-- Bessemer and Battery public cloud/AI market notes on software defensibility (2025).
-- Industry postmortems from failed and surviving AI copilots in vertical SaaS (2025 blogs).
+- Bessemer and Battery public notes on software defensibility in AI wave (2025).
+- Sequoia commentary on application-layer AI value capture (2025).
+- Operator and copilot postmortems from vertical SaaS engineering teams (2025).
