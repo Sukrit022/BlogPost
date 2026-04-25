@@ -1,0 +1,127 @@
+---
+title: "The False Promise of \"Open Source\" AI"
+date: "2025-11-03"
+excerpt: "Everyone says their model is open now. But if I cannot recreate it from scratch, is it actually open or just conveniently downloadable?"
+tags:
+  - policy
+  - open-source
+  - ai-industry
+---
+
+The phrase "open source AI" has started to feel like elastic marketing language.
+
+Stretch it enough and it means almost anything.
+
+A lot of companies now say "open" when what they really offer is model weights and maybe a limited license.
+
+Useful? Yes.
+
+Open source in the traditional sense? Not always.
+
+## Open weights is not the same as open source
+
+This is the distinction I wish more people said clearly.
+
+Open weights usually means you can run the trained model and inspect behavior.
+
+True open source, historically, means you can inspect, modify, rebuild, and redistribute the full system under terms that preserve those freedoms.
+
+In AI, that full system includes more than weights:
+
+- data pipeline choices,
+- filtering decisions,
+- training code,
+- training recipe,
+- evaluation pipeline.
+
+If those are missing, you are interacting with a black box that is merely easier to access.
+
+That can still be valuable. But it is different.
+
+## Why this matters beyond semantics
+
+At first I thought this was mostly a purity argument from open-source people.
+
+Then I saw why founders and researchers should care.
+
+If you cannot reproduce a model end-to-end, you cannot fully audit where behavior comes from.
+
+You also cannot reliably answer tough questions like:
+
+- what data biases were introduced,
+- what legal constraints are embedded,
+- what part of behavior changed after fine-tuning,
+- what can be improved without vendor dependency.
+
+So yes, you can build products with open-weight models.
+
+But you still inherit important uncertainty.
+
+## The "free sample" problem
+
+Here is the blunt test I use now:
+
+If a company disappears tomorrow, can the community recreate this model pipeline from provided artifacts?
+
+If the answer is no, it is probably not open source. It is a free sample with a good distribution package.
+
+That is not an insult. It is just category clarity.
+
+And category clarity matters when founders design long-term dependency risk.
+
+## OSI stepping in was inevitable
+
+The Open Source Initiative trying to define Open Source AI more explicitly was not random policy theater.
+
+It was a response to market confusion.
+
+Without shared definitions, every launch post can claim openness while hiding key components that make reproducibility possible.
+
+Then users assume rights they do not actually have.
+
+That gap creates legal and technical surprises later.
+
+## Why big tech incentives push "open washing"
+
+This part is uncomfortable but predictable.
+
+"Open" messaging gives companies credibility with developers.
+
+At the same time, withholding full training assets protects competitive edge and reduces risk.
+
+So the market found a middle state:
+
+- release enough to be adopted,
+- keep enough private to preserve control,
+- market it using language associated with traditional open source.
+
+Can you blame them? From a business standpoint, maybe not.
+
+But we should still call the model what it is.
+
+## Practical takeaway for builders
+
+When evaluating a supposedly open model, do a five-minute checklist:
+
+1. Are weights available under usable terms?
+2. Is training code available?
+3. Is data provenance documented enough to assess risk?
+4. Is the recipe reproducible in practice, not just in theory?
+5. Can you legally ship a commercial product with minimal ambiguity?
+
+If most answers are unclear, treat it as "open-access model," not true open source.
+
+That framing will save you from legal and platform surprises.
+
+## Closing thought
+
+I am not anti open-weights. They have accelerated experimentation massively.
+
+I just think we should stop pretending every open-weight release is open source.
+
+If you cannot build the box, inspect the process, and replicate the result, you are not looking at open source. You are looking at a very useful black box with generous API access.
+
+### Light references
+
+- Open Source Initiative, Open Source AI Definition process documents.
+- Linux Foundation and community discussions on AI model openness criteria (2024-2025).

@@ -1,0 +1,119 @@
+---
+title: "Is the Transformer Era Peaking? A Look at State-Space Models"
+date: "2025-10-14"
+excerpt: "I tried feeding a giant PDF into an LLM and watched latency go from annoying to absurd. That rabbit hole led me to Mamba and why architecture economics suddenly matter again."
+tags:
+  - research-simplified
+  - architecture
+  - startups
+---
+
+Last week I uploaded a massive policy PDF to a model and waited.
+
+And waited.
+
+The answer eventually came back, but by then I had already opened two other tabs and lost the thread of what I wanted to ask next.
+
+That moment pushed me into a question I had been ignoring: what if the main problem is not "model intelligence," but the cost of processing long context at scale?
+
+Maybe I am overthinking this, but I do think we are entering another architecture debate, and this one is not academic. It is a product and startup economics debate.
+
+## Why this keeps coming back to cost curves
+
+Most people in AI product circles talk about quality metrics and benchmark deltas. Fair.
+
+But infra teams care about another line on the graph: what happens to compute cost when context length grows.
+
+For classic Transformer attention, cost grows roughly quadratically with sequence length.
+
+You do not need the formula to feel the effect:
+
+- small prompts feel cheap,
+- medium prompts feel fine,
+- long-context workloads suddenly feel expensive and slow.
+
+The easiest analogy I found:
+
+- Transformer-style scaling can feel like a taxi meter that rises faster the longer the trip goes.
+- State-space approaches try to behave more like a flat-rate subway pass for long rides.
+
+It is not a perfect analogy, but it captures why founders should care.
+
+## Where Mamba became interesting
+
+The Mamba paper from Gu and Dao got attention because it offered a different route for sequence modeling with linear-time behavior in key operations.
+
+For practical builders, the interesting part is not ideological ("Transformers are dead").
+
+The interesting part is optionality.
+
+If you can process long streams with lower memory pressure and better throughput, you can build products that were previously too expensive to run in production.
+
+Think about use cases like:
+
+- multi-hour call transcript analysis,
+- legal and compliance review over giant documents,
+- persistent coding assistants that need long running context,
+- timeline reconstruction from log streams.
+
+In these settings, architecture choices directly shape gross margins and user experience.
+
+## Startup angle: architecture is now a GTM decision
+
+I used to think architecture was mostly a research team preference.
+
+Now I think it is closer to go-to-market strategy.
+
+If your category needs long context by default, and your serving bill explodes with scale, your pricing power gets weird fast.
+
+You can have strong demand and still have weak unit economics.
+
+This is why I pay attention to alternatives like Mamba, hybrid systems, and models like Jamba that mix patterns rather than treating one architecture as religion.
+
+Because in the real world, "best architecture" usually means:
+
+- reliable enough,
+- fast enough,
+- cheap enough,
+- deployable now.
+
+## Are Transformers going away? Probably not.
+
+I do not buy dramatic takes like "Transformers are finished."
+
+Transformers are still incredibly strong and deeply optimized in tooling and ecosystem support. That installed base matters.
+
+What feels more realistic is a mixed future:
+
+- Transformers remain dominant in many workloads.
+- State-space and hybrid approaches win specific long-context and efficiency-heavy niches.
+- Production stacks become architecture-aware instead of architecture-loyal.
+
+That shift alone is meaningful.
+
+## What to watch over the next year
+
+If you are tracking this for startup decisions, I would watch four things:
+
+1. Real serving benchmarks, not only paper metrics.
+2. Memory and latency behavior under messy production load.
+3. Tooling maturity (debugging, fine-tuning, deployment support).
+4. Total system cost at 10x and 100x user scale.
+
+Most architecture hype fades at point #4.
+
+## Closing thought
+
+The last two years made many of us assume scale alone solves everything.
+
+This new wave feels different. We are being forced to care about efficiency again.
+
+And honestly, that might be healthy for the ecosystem.
+
+If intelligence is becoming more available, then smart system design and cost-aware architecture may be where real product advantage is built.
+
+### Light references
+
+- Gu and Dao, "Mamba: Linear-Time Sequence Modeling with Selective State Spaces" (2023).
+- AI21, "Jamba" model architecture release notes (2024).
+- Long-context efficiency discussions from production inference teams (2024-2025).

@@ -1,0 +1,128 @@
+---
+title: "Stop Prompting, Start Orchestrating: The Shift to Agentic Workflows"
+date: "2025-11-21"
+excerpt: "Single prompts are useful, but they hit a ceiling fast. Breaking work into planning, execution, and review loops changed output quality more than prompt wording tweaks."
+tags:
+  - agents
+  - product-design
+  - workflows
+---
+
+Prompt engineering used to feel like the center of the universe.
+
+Now it feels like one layer in a bigger system.
+
+I do not mean prompting is dead. It still matters.
+
+But honestly, I think we have over-focused on writing the perfect one-shot prompt when many tasks are naturally multi-step.
+
+## Why single prompts hit a wall
+
+A single prompt is like hiring a genius and telling them:
+
+"Write the full report, double-check every claim, and edit your own draft in one breath."
+
+Sometimes that works.
+
+Often it does not, especially when tasks involve:
+
+- external data retrieval,
+- conflicting constraints,
+- iterative refinement,
+- verification before final output.
+
+The failure mode is usually subtle. You get a polished answer that skipped one important step.
+
+## What changed when I switched to workflow design
+
+Instead of one giant prompt, I started splitting tasks into explicit roles:
+
+1. Planner
+Produces a short plan with step IDs.
+
+2. Researcher
+Collects evidence and sources.
+
+3. Drafter
+Builds first-pass output from verified inputs.
+
+4. Reviewer
+Checks scope, logic, and missing constraints.
+
+5. Finalizer
+Returns concise output with uncertainty notes.
+
+That structure sounds heavy, but it improved reliability quickly because each step had a clear objective.
+
+Andrew Ng has been emphasizing this design pattern idea for a while: practical AI systems are often about agentic loops and tool orchestration, not a magical monolithic prompt.
+
+After trying it, I get why.
+
+## The quality jump came from checkpoints, not model upgrades
+
+I initially expected improvements to come from switching models.
+
+The bigger improvement came from introducing checkpoints.
+
+Three checkpoints were especially useful:
+
+- explicit assumption listing before drafting,
+- mandatory evidence attachment for major claims,
+- reviewer step that can reject and send back.
+
+This reduced "confident but wrong" outputs more than prompt wording tweaks ever did.
+
+## A simple pattern anyone can test
+
+If you are building with LLMs, try this low-complexity pattern first:
+
+- Step A: ask model to create task plan in 4 bullets.
+- Step B: ask model to execute only bullet #1.
+- Step C: validate output before moving to next bullet.
+- Step D: repeat.
+- Step E: assemble final response at the end.
+
+This alone forces the system to stay grounded.
+
+No fancy multi-agent framework needed to start.
+
+## Tradeoff: more orchestration, less fragility
+
+Yes, there is overhead.
+
+You write more system logic, maintain state, and handle retries.
+
+But the payoff is real:
+
+- easier debugging,
+- better reliability,
+- cleaner failure boundaries,
+- less dependence on one perfect prompt.
+
+For production systems, those are not "nice to have." They are the difference between demo quality and deployable quality.
+
+## Where this is going
+
+I think the next year of AI products will reward teams that are good at workflow architecture.
+
+Not just prompting.
+
+Not just model switching.
+
+Workflow architecture.
+
+The teams that can decompose tasks, route decisions, and enforce verification will produce more dependable outcomes at lower cost.
+
+## Closing thought
+
+Prompting is still a skill. It is just no longer the whole game.
+
+The bigger skill now is orchestration: deciding what should happen in what order, with what checks, and what fallback path when a step fails.
+
+That is less glamorous than viral prompt threads, but it is much closer to how durable software gets built.
+
+### Light references
+
+- Andrew Ng, essays and talks on agentic design patterns.
+- Anthropic and OpenAI tool-use docs for multi-step workflows (2024-2025).
+- Public engineering writeups from production teams using planner-executor-review loops.

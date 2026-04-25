@@ -1,0 +1,117 @@
+---
+title: "The AI Plumbing Problem (And Why MCP Matters)"
+date: "2026-01-08"
+excerpt: "Building AI apps still feels like tangled wires. MCP is interesting because it standardizes how agents connect to real tools and data, not just how they chat."
+tags:
+  - mcp
+  - infrastructure
+  - agents
+---
+
+Building AI apps right now sometimes feels like working behind a desk full of adapters.
+
+One connector for files.
+
+Another for internal APIs.
+
+Another for SaaS tools.
+
+Then custom glue code everywhere.
+
+It works, but it is fragile.
+
+That is why Model Context Protocol (MCP) got my attention.
+
+Not because it is flashy, but because it addresses a boring problem that keeps slowing teams down.
+
+## The core problem MCP is trying to solve
+
+Today, many agent systems use custom integration logic for each data source and tool.
+
+That means every new source requires one more bespoke connector, and every connector has its own assumptions.
+
+Result:
+
+- duplicated engineering effort,
+- brittle maintenance,
+- inconsistent security boundaries,
+- harder portability across model providers.
+
+MCP proposes a standard way for models and tools to communicate context and capabilities.
+
+In plain language: one common interface pattern instead of dozens of one-off wiring jobs.
+
+## Why this matters more than it sounds
+
+In early product phases, custom integration is fine.
+
+At scale, custom integration becomes tax.
+
+Teams start spending serious time maintaining glue code that adds no user-facing differentiation.
+
+I see MCP as similar to what USB did for hardware peripherals.
+
+Before USB, you dealt with cable chaos and compatibility headaches.
+
+After USB, connection became predictable enough that innovation moved up the stack.
+
+Maybe MCP is not the final standard, but the direction makes sense.
+
+## What becomes easier with a shared protocol
+
+If the protocol layer stabilizes, builders can focus more on logic and less on wiring.
+
+Things that improve quickly:
+
+- onboarding new tools into an agent workflow,
+- swapping model backends with less rewrite,
+- managing permissions and trust boundaries in one place,
+- debugging context flow with clearer contracts.
+
+This is not theoretical. Even basic standardization reduces integration drag.
+
+And integration drag is one of the hidden reasons many AI demos never become reliable products.
+
+## Why VCs should care about this "unsexy" layer
+
+Infrastructure that lowers developer friction often captures durable value.
+
+Founders usually pitch visible features.
+
+But ecosystem bottlenecks are often in the invisible middle layer.
+
+If MCP-like standards become widespread, the winners may include:
+
+- tool providers that expose clean, secure protocol endpoints,
+- orchestration platforms that make protocol-native workflows easier,
+- governance and audit tools built around standardized context exchange.
+
+In other words, plumbing can become a market.
+
+## Real caution points
+
+I am optimistic, but not naive.
+
+Standardization can also create new concerns:
+
+- attack surface expands if permissions are poorly designed,
+- protocol adoption can fragment if every vendor forks behavior,
+- "standard" does not guarantee reliability by itself.
+
+So protocol work must be paired with good security and observability.
+
+Otherwise we only move complexity from one layer to another.
+
+## Closing thought
+
+MCP is interesting precisely because it is boring.
+
+When a field matures, boring standards often unlock the next wave of product creativity.
+
+I would not be surprised if the biggest long-term value in AI agents comes less from clever prompts and more from whoever makes context plumbing dependable.
+
+### Light references
+
+- Anthropic MCP documentation and protocol repositories.
+- Community MCP server implementations and integration notes (2025-2026).
+- Historical developer platform lessons from protocol standardization in other ecosystems.
