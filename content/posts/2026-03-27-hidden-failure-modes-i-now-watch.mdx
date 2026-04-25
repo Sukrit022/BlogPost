@@ -1,0 +1,78 @@
+---
+title: "Hidden failure modes in LLM products I now watch first"
+date: "2026-03-27"
+excerpt: "The obvious hallucinations are easy to catch. The dangerous failures are often cleaner, quieter, and more convincing."
+tags:
+  - failure-modes
+  - llms
+  - reliability
+---
+
+I used to worry most about blatant hallucinations. Random fake citations, fake stats, obvious nonsense.
+
+Those are still problems, but they are not the ones that scare me most now.
+
+The failures I worry about in 2026 are subtler and often look competent at first glance.
+
+## Failure mode 1: plausible but mis-scoped answers
+
+The model gives a polished answer to a neighboring problem, not the actual question.
+
+This happens a lot when prompts are ambiguous or contain hidden constraints. The answer reads great, so teams ship it, and only later realize the scope drift.
+
+What helped me: forcing a one-line restatement of task scope before full output. It catches more issues than I expected.
+
+## Failure mode 2: false certainty with tidy formatting
+
+Neat formatting creates trust, even when confidence should be low.
+
+I noticed this in startup analysis prompts. The model would present assumptions as settled facts unless explicitly asked for uncertainty markers.
+
+Now I ask for:
+
+- explicit assumption list,
+- confidence level per key claim,
+- top two reasons the answer might be wrong.
+
+This simple ritual reduced overconfidence bias in my own reading too.
+
+## Failure mode 3: tool-chain partial completion
+
+In multi-step systems, an agent can complete 90% of workflow and still miss one critical validation step.
+
+The output appears complete. It isn't.
+
+I now treat completion as a checklist state, not a generated statement. If step IDs aren't logged, it is not done.
+
+## Failure mode 4: benchmark-safe, user-fragile behavior
+
+A model can score well on curated evals but fail in weird real prompts involving mixed intent, domain jargon, or contradictory instructions.
+
+This is why I keep advocating for messy eval sets sourced from real usage.
+
+Not many people are talking about this enough in public model discourse, maybe because it is not sexy. But this is where product trust is won or lost.
+
+## What changed in my own approach
+
+Six months ago I was mostly model-centric.
+
+Now I am stack-centric:
+
+- model capability,
+- prompt and context strategy,
+- tool reliability,
+- verification layer,
+- UX for uncertainty.
+
+When any layer is weak, "smart model" does not save the system.
+
+## Closing thought
+
+The big lesson for me: failure analysis is becoming a first-class product skill in AI.
+
+Teams that treat failure modes as design inputs, not post-launch surprises, will build products users can rely on. Everyone else will keep shipping impressive demos that age badly.
+
+### Light references
+
+- OpenAI and Anthropic safety/system documentation updates (2025).
+- Recent evaluation and reliability discussions from METR, ARC Prize ecosystem, and independent red-team reports (2025-2026).

@@ -1,0 +1,79 @@
+---
+title: "What R1-style reasoning changed for me"
+date: "2025-12-05"
+excerpt: "Reasoning models did improve some tasks for me, but not in the way social media clips made it look."
+tags:
+  - reasoning-models
+  - research-simplified
+  - personal-observations
+---
+
+When the new wave of reasoning models started getting shared everywhere, I expected one thing: massive jump in all complex tasks.
+
+What I got was more mixed.
+
+In some areas, yes, obvious improvement. In others, not much. And in a few cases, the longer reasoning actually made the answer worse because it over-committed to an early assumption.
+
+That gap between demo perception and daily use is interesting.
+
+## Where I saw clear gains
+
+For me, the strongest gains were in:
+
+- multi-step planning with constraints,
+- explicit tradeoff analysis,
+- debugging when the model had to inspect multiple hypotheses.
+
+I run a small weekly test where I give a messy startup scenario and ask for a decision memo with assumptions. Earlier models jumped to recommendations quickly. Reasoning models are better at laying out possibility space before deciding.
+
+This seems small, but it matters a lot for strategic writing.
+
+## Where it still trips
+
+I still hit frustrating failures:
+
+- Long chains that are coherent but anchored to a wrong premise.
+- Verbose reasoning where only a short answer was needed.
+- Better "explanation quality" but unchanged factual error rate on niche domains.
+
+I initially thought more chain length equals more truth. Not really.
+
+The model can reason deeply inside an incorrect frame. Once that clicked, I stopped treating long outputs as an automatic sign of quality.
+
+## The product implication nobody told me
+
+Reasoning capability shifts where the bottleneck sits.
+
+Before: "Can the model think enough?"
+Now: "Can we verify what it thought, and intervene early if the frame is wrong?"
+
+That means product teams need better intermediate checks:
+
+1. assumption extraction,
+2. targeted critiques,
+3. small verifier prompts,
+4. confidence display that is actually calibrated.
+
+This is why I keep saying eval infrastructure is becoming the moat, not raw model access.
+
+## A note on cost and UX
+
+Reasoning-heavy calls are not cheap, either in latency or money. In some UX contexts, users don't want to read a full chain, they want a decision with one sentence of why.
+
+So now I choose mode by task:
+
+- quick mode for drafting and classification,
+- reasoning mode for high-stakes synthesis or planning.
+
+That simple split reduced cost and actually improved perceived quality.
+
+## Closing thought
+
+My current view: reasoning models are real progress, but they are not magic. They reward teams that design verification loops around them.
+
+If you only swap the model and keep the same product scaffolding, you get maybe 20% of the benefit.
+
+### Light references
+
+- DeepSeek-AI, *DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning* (arXiv, 2025).
+- OpenAI reasoning model system documentation and safety notes (2025 updates).

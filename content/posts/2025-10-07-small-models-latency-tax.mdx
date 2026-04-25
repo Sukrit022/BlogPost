@@ -1,0 +1,64 @@
+---
+title: "Small models are winning where waiting is expensive"
+date: "2025-10-07"
+excerpt: "I thought bigger models would always feel better. After shipping small campus tools, I changed my mind in some very specific places."
+tags:
+  - small-models
+  - product
+  - inference
+---
+
+I used to assume model quality was mostly an IQ contest: higher benchmark score, better product. Then I built two tiny student tools this semester, and I kept hearing the same thing from friends: "This one just feels faster." Nobody said "this has 2.1% better reasoning." They just cared that they got an answer before they lost focus.
+
+That pushed me into a weird question: in real use, how much quality are people willing to trade for speed?
+
+## The latency tax nobody says out loud
+
+When you're using AI inside a workflow, delay compounds.
+
+- 2 seconds feels fine.
+- 6 seconds feels annoying.
+- 12 seconds makes you open another tab and forget what you asked.
+
+I initially thought this was only a consumer attention problem. But even for research-y tasks, once latency is high, your loop breaks. You stop exploring aggressively and start asking safer prompts, because each try is expensive.
+
+That's why small models in narrow contexts can feel unexpectedly good. They keep the loop alive.
+
+## "Good enough" beats "best" more often than I expected
+
+One of my projects summarizes long lecture PDFs. I tested a larger frontier model vs a smaller model tuned with a strict output format. The large model had better nuance maybe 2 out of 10 times. The smaller one was more consistent on structure, cheaper, and roughly 3x faster in my setup.
+
+What surprised me: users preferred consistency over occasional brilliance.
+
+I still think larger models matter for ambiguous tasks, but in repetitive workflows people care about three boring things:
+
+- predictable output shape,
+- low latency,
+- not worrying about cost spikes.
+
+That feels less glamorous than "state-of-the-art reasoning," but it is closer to how software teams choose tools.
+
+## Where big models still earn their place
+
+I don't want to overcorrect. Small models are not replacing everything.
+
+The bigger systems still win when:
+
+- context is messy and instructions are underspecified,
+- you need cross-domain synthesis,
+- the cost of a wrong answer is high.
+
+For my own writing and deep study notes, larger models still feel noticeably better. They catch subtle relationships I miss. But for quick transformations, triage, and first-pass drafts, smaller models are getting good enough that the speed/cost profile changes the product decision.
+
+## What I think now
+
+The contrarian take is not "small models beat large models." It's "product value is often dominated by loop speed, not pure intelligence."
+
+Not many people are talking about this from a builder perspective. We keep discussing leaderboard deltas while users are quietly optimizing for momentum.
+
+I suspect a lot of durable AI startups in 2026 will look less like model companies and more like workflow companies that happen to choose the right model size at the right step.
+
+### Light references
+
+- Qwen Team, *Qwen2.5 Technical Report* (arXiv, 2024).
+- Mistral AI blog update on small-model deployment tradeoffs (2025).

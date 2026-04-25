@@ -1,65 +1,95 @@
-import Image from "next/image";
+import Link from "next/link";
 
-export default function Home() {
+import { BlogCard } from "@/components/blog-card";
+import { getAllPosts, getAllTags, getRecentPosts } from "@/lib/posts";
+
+export default async function Home() {
+  const [recentPosts, allPosts, tags] = await Promise.all([
+    getRecentPosts(4),
+    getAllPosts(),
+    getAllTags(),
+  ]);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="space-y-14">
+      <section className="animate-fade-in space-y-6">
+        <p className="text-xs uppercase tracking-[0.22em] text-muted">Notebook • AI • Startups</p>
+        <h1 className="max-w-2xl font-display text-4xl leading-[1.1] text-foreground md:text-5xl">
+          A running log of things I changed my mind about in AI.
+        </h1>
+        <p className="max-w-2xl text-lg leading-8 text-muted">
+          I started this as rough notes after classes, podcasts, and random paper deep-dives.
+          Over time it turned into something between a journal and a map of where AI might be going.
+        </p>
+      </section>
+
+      <section className="grid gap-6 rounded-2xl border border-border/70 bg-card p-6 md:grid-cols-[1.1fr_1fr]">
+        <div className="space-y-3">
+          <h2 className="font-display text-2xl text-foreground">About Sukrit</h2>
+          <p className="leading-7 text-muted">
+            I&apos;m a college student trying to get less impressed by demos and more curious about what is actually durable.
+            Most of these notes are from late-night rabbit holes around model behavior, startup moats, and evaluation gaps.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="space-y-3">
+          <p className="text-sm uppercase tracking-[0.14em] text-muted">Current curiosity list</p>
+          <ul className="space-y-2 text-sm leading-6 text-muted">
+            <li>How synthetic data loops quietly degrade signal</li>
+            <li>Where small models keep winning on latency + cost</li>
+            <li>Why eval tooling feels behind model capability</li>
+          </ul>
         </div>
-      </main>
+      </section>
+
+      <section className="space-y-6">
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <p className="text-xs uppercase tracking-[0.18em] text-muted">Recent posts</p>
+            <h2 className="font-display text-3xl text-foreground">What I wrote lately</h2>
+          </div>
+          <Link href="/notes" className="text-sm text-muted transition hover:text-foreground">
+            View all notes
+          </Link>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          {recentPosts.map((post, index) => (
+            <div
+              key={post.slug}
+              className="animate-fade-in"
+              style={{ animationDelay: `${index * 90}ms`, animationFillMode: "both" }}
+            >
+              <BlogCard post={post} />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="space-y-5">
+        <h2 className="font-display text-3xl text-foreground">All posts</h2>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {allPosts.map((post, index) => (
+            <div
+              key={post.slug}
+              className="animate-fade-in"
+              style={{ animationDelay: `${index * 35}ms`, animationFillMode: "both" }}
+            >
+              <BlogCard post={post} />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="space-y-4 rounded-2xl border border-border/70 bg-card p-6">
+        <p className="text-xs uppercase tracking-[0.18em] text-muted">Topics I keep returning to</p>
+        <div className="flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <span key={tag} className="rounded-full border border-border px-3 py-1 text-xs uppercase tracking-[0.12em] text-muted">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

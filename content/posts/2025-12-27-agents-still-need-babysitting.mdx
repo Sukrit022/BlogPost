@@ -1,0 +1,81 @@
+---
+title: "AI agents are interesting, but mine still need babysitting"
+date: "2025-12-27"
+excerpt: "After trying agent workflows for six weeks, I’m less cynical than before, but definitely less impressed too."
+tags:
+  - ai-agents
+  - reliability
+  - personal-observations
+---
+
+I went into this month with two extreme opinions fighting in my head:
+
+- "Agents are overhyped wrappers around tool calls."
+- "Agents will replace huge chunks of white-collar workflows soon."
+
+After actually building and testing a few mini agent loops, I landed in the boring middle.
+
+Agents are useful. But unattended reliability is still far from where the hype suggests.
+
+## Where agents genuinely helped me
+
+I built one agent for research triage: collect sources, summarize differences, produce a short position note.
+
+When scoped tightly, it saved me real time. Especially on repetitive subtasks like:
+
+- extracting key claims from 5-6 articles,
+- normalizing them into one format,
+- drafting a first-pass comparison.
+
+I don't want to undersell that. It was enough value to keep using it.
+
+## Where things broke in annoying ways
+
+The failure pattern wasn't dramatic errors. It was brittle execution.
+
+Examples from my logs:
+
+- Tool call order drifted after one unexpected response shape.
+- The agent retried the wrong step instead of recovering context.
+- It confidently completed a workflow while silently skipping one required check.
+
+This is the part most demo videos ignore. A workflow can look 90% done and still be unusable because the missing 10% is the compliance or validation step.
+
+## Why this happens (my best guess)
+
+I think agents stack uncertainty across layers:
+
+1. model reasoning uncertainty,
+2. tool interface uncertainty,
+3. environment uncertainty,
+4. objective ambiguity.
+
+Any one layer can be manageable. Together, they amplify small mistakes.
+
+I initially thought better model intelligence alone would solve this. Now I think orchestration design and guardrails matter just as much.
+
+## What made my agent less flaky
+
+The biggest improvements came from boring engineering:
+
+- strict typed tool schemas,
+- step-by-step state logs,
+- explicit "done criteria" per stage,
+- cheap verifier pass before final output.
+
+Not glamorous, but reliability jumped.
+
+Also, I stopped pretending "fully autonomous" was the right goal. Human-in-the-loop checkpoints on high-impact steps made the system feel way more practical.
+
+## Closing thought
+
+My contrarian take now is simple: the winning agent products in the near term may look less autonomous than expected.
+
+They will probably be collaborative systems with sharp boundaries, not magical co-workers running free.
+
+And honestly, that's fine. Useful + predictable beats autonomous + fragile.
+
+### Light references
+
+- Anthropic, *Building Effective Agents* (engineering blog, 2024).
+- OpenAI and ecosystem agent framework implementation notes (2025 updates across SDK docs).

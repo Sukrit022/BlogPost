@@ -1,0 +1,78 @@
+---
+title: "I’m pretty sure evals are now the real bottleneck"
+date: "2026-02-19"
+excerpt: "Model progress is real, but my confidence in deployments still bottlenecks at one thing: evaluation quality."
+tags:
+  - evaluation
+  - reliability
+  - under-discussed
+---
+
+A few months ago my mental bottleneck was model capability.
+
+Now it is eval quality. By far.
+
+I can get useful outputs from almost every frontier model for many tasks. The harder question is: when should I trust the system without manually checking every answer?
+
+That trust boundary is an evaluation problem, not a model problem.
+
+## Why this shifted for me
+
+In side projects and internships, I kept seeing the same timeline:
+
+- model demo looked great,
+- pilot looked promising,
+- scale-up exposed weird edge cases,
+- team spent weeks patching reliability instead of building features.
+
+The model wasn't "bad." We just hadn't measured the right risks upfront.
+
+## The eval gap is mostly about realism
+
+A lot of eval setups still over-index on static correctness benchmarks.
+
+Useful, yes. Sufficient, no.
+
+Production systems need broader checks:
+
+- robustness to ambiguous inputs,
+- behavior under tool failures,
+- calibration under uncertainty,
+- consistency across long interactions,
+- failure recovery quality.
+
+This part is less fun than model comparisons, so teams postpone it.
+
+Then they pay the cost later in user trust.
+
+## The thing I changed in my own workflow
+
+I now keep two eval sets for every recurring AI task I care about:
+
+1. **Core set:** stable, versioned tasks for regression tracking.
+2. **Chaos set:** messy edge cases collected from real interactions.
+
+The chaos set is ugly. Some prompts are badly written. Some are contradictory. Perfect.
+
+If a model handles only clean inputs, I treat that as an early warning.
+
+## Why this might be the next startup moat
+
+There is a startup angle here that feels underpriced.
+
+Teams that build strong, domain-specific eval and monitoring layers can become essential infrastructure. Especially in healthcare, legal, finance, and enterprise operations where hidden failure costs are high.
+
+I used to think this was "tooling around the main event." I no longer think that.
+
+If models commoditize further, evaluation and assurance become the trust layer everyone needs.
+
+## Closing thought
+
+The real bottleneck in 2026 might be not "can models do it?" but "can organizations know when models fail before users do?"
+
+That is less dramatic than AGI discourse, but probably more economically important in the near term.
+
+### Light references
+
+- DeepSeek-AI, *DeepSeek-R1* (arXiv, 2025) discussion threads on eval strengths/limits.
+- METR and independent eval community writeups on long-horizon task performance (2025).

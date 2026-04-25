@@ -1,0 +1,64 @@
+---
+title: "AI benchmarks feel too clean compared to real use"
+date: "2025-10-29"
+excerpt: "I like benchmarks, but the way we use them in product conversations is kind of broken."
+tags:
+  - evaluation
+  - llms
+  - research-simplified
+---
+
+I have a love-hate relationship with benchmarks.
+
+Love, because without them we would just argue vibes.
+Hate, because product teams keep treating benchmark ranks like deployment guarantees.
+
+This part confused me for a while. I kept seeing models that looked strong on public evals but behaved weirdly in messy prompts from actual users. Not catastrophically wrong. Just... brittle in ways the benchmark never surfaced.
+
+## Clean tasks vs messy intent
+
+Most benchmark tasks are cleanly scoped. A user prompt is not.
+
+In real usage, people:
+
+- mix three tasks in one prompt,
+- provide half context,
+- change requirements midway,
+- assume the model remembers things it doesn't.
+
+When that happens, minor weaknesses become major UX issues. A model that is +5 points on a benchmark may still feel worse if it fails gracefully less often.
+
+I initially thought benchmark mismatch was just prompt quality. Now I think that is only half true.
+
+## The leaderboard incentive problem
+
+If companies optimize hard for known public tests, we get two side effects:
+
+- Overfitting to benchmark patterns.
+- Underinvestment in "annoying" failures that users actually notice.
+
+The hidden failure mode is not obvious hallucinations anymore. It's false confidence with plausible formatting. You get output that looks complete but misses one critical assumption. In startup settings, that is often worse than a clearly bad answer because the team trusts it.
+
+## What I now test before trusting a model
+
+I keep a tiny personal eval pack. Nothing fancy, just repeatable checks that reflect my own workflows:
+
+1. Ambiguous instruction handling: does it ask a useful clarifying question?
+2. Constraint memory: can it retain exact formatting constraints across long outputs?
+3. Recovery behavior: if I point out one mistake, does it patch only that part or rewrite everything randomly?
+4. "No answer" quality: when uncertain, does it communicate limits without collapsing?
+
+This gets me more signal than a single benchmark score.
+
+## Why this matters for AI startups
+
+A lot of AI startup differentiation right now is not model access. It is evaluation discipline.
+
+Teams that build product-shaped eval loops move faster because they stop debating abstract quality and start tracking concrete failure classes. That becomes a defensibility layer over time. It's not flashy, but it compounds.
+
+So yes, benchmark improvements are real and important. But when I hear "Model X is #1, so we're safe," I mentally translate it to: "We have not done enough scenario testing yet."
+
+### Light references
+
+- DeepSeek-AI, *DeepSeek-R1* (arXiv, 2025) for reasoning gains and evaluation discussions.
+- LMSYS Chatbot Arena methodology notes and leaderboard updates (2025).
