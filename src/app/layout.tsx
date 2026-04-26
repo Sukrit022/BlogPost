@@ -19,8 +19,8 @@ const displaySans = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: {
-    default: "Sukrit's AI Notes",
-    template: "%s | Sukrit's AI Notes",
+    default: "Sukrit's Notes",
+    template: "%s | Sukrit's Notes",
   },
   description: "A personal notebook of ideas, breakdowns, and thoughts on AI, startups, and research.",
 };

@@ -9,11 +9,12 @@ export default async function Home() {
     getAllPosts(),
     getAllTags(),
   ]);
+  const focusTags = tags.slice(0, 6);
 
   return (
     <div className="space-y-14">
       <section className="animate-fade-in space-y-6">
-        <p className="text-xs uppercase tracking-[0.22em] text-muted">Notebook • AI • Startups</p>
+        <p className="text-xs uppercase tracking-[0.22em] text-muted">Notebook • Startups • Research</p>
         <h1 className="max-w-2xl font-display text-4xl leading-[1.1] text-foreground md:text-5xl">
           A running log of things I changed my mind about in AI.
         </h1>
@@ -21,17 +22,6 @@ export default async function Home() {
           I started this as rough notes after classes, podcasts, and random paper deep-dives.
           Over time it turned into something between a journal and a map of where AI might be going.
         </p>
-      </section>
-
-      <section className="rounded-2xl border border-border/70 bg-card p-6">
-        <div className="space-y-3">
-          <p className="text-sm uppercase tracking-[0.14em] text-muted">Current curiosity list</p>
-          <ul className="space-y-2 text-sm leading-6 text-muted">
-            <li>How synthetic data loops quietly degrade signal</li>
-            <li>Where small models keep winning on latency + cost</li>
-            <li>Why eval tooling feels behind model capability</li>
-          </ul>
-        </div>
       </section>
 
       <section className="space-y-6">
@@ -76,7 +66,7 @@ export default async function Home() {
       <section className="space-y-4 rounded-2xl border border-border/70 bg-card p-6">
         <p className="text-xs uppercase tracking-[0.18em] text-muted">Topics I keep returning to</p>
         <div className="flex flex-wrap gap-2">
-          {tags.map((tag) => (
+          {focusTags.map((tag) => (
             <span key={tag} className="rounded-full border border-border px-3 py-1 text-xs uppercase tracking-[0.12em] text-muted">
               {tag}
             </span>

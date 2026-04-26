@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 const STORAGE_KEY = "sukrit-theme";
 
 type Theme = "light" | "dark";
@@ -14,22 +16,39 @@ function setDocumentTheme(theme: Theme): void {
 }
 
 export function ThemeToggle() {
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === "undefined") {
+      return "light";
+    }
+
+    const savedTheme = window.localStorage.getItem(STORAGE_KEY) as Theme | null;
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    return savedTheme ?? (prefersDark ? "dark" : "light");
+  });
+
   const toggleTheme = () => {
-    const isDark = document.documentElement.classList.contains("dark");
-    const nextTheme: Theme = isDark ? "light" : "dark";
+    const nextTheme: Theme = theme === "dark" ? "light" : "dark";
 
     setDocumentTheme(nextTheme);
     window.localStorage.setItem(STORAGE_KEY, nextTheme);
+    setTheme(nextTheme);
   };
 
   return (
     <button
       type="button"
       onClick={toggleTheme}
-      className="rounded-full border border-border px-3 py-1.5 text-xs uppercase tracking-[0.16em] text-muted transition hover:border-foreground hover:text-foreground"
-      aria-label="Toggle dark mode"
+      className="inline-flex items-center gap-2 rounded-full border border-border px-2 py-1 text-[11px] uppercase tracking-[0.12em] text-muted transition hover:border-foreground"
+      aria-label="Toggle dark and light theme"
+      aria-pressed={theme === "dark"}
     >
-      Theme
+      <span className="pl-1">{theme === "dark" ? "Dark" : "Light"}</span>
+      <span className="relative h-5 w-9 rounded-full bg-border/80 transition">
+        <span
+          className={`absolute top-0.5 h-4 w-4 rounded-full bg-foreground transition-transform ${theme === "dark" ? "translate-x-4" : "translate-x-0.5"}`}
+        />
+      </span>
     </button>
   );
 }

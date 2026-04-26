@@ -8,7 +8,7 @@ export function Navbar() {
       <div className="mx-auto flex w-full max-w-4xl items-center justify-between px-6 py-4 md:px-8">
         <Link href="/" className="group">
           <p className="font-display text-lg tracking-tight text-foreground transition group-hover:text-accent">
-            Sukrit&apos;s AI Notes
+            Sukrit&apos;s Notes
           </p>
           <p className="text-[10px] uppercase tracking-[0.22em] text-muted">a thinking notebook</p>
         </Link>
