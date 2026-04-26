@@ -102,6 +102,101 @@ If you are tracking this for startup decisions, I would watch four things:
 
 Most architecture hype fades at point #4.
 
+## The second-order effect: hardware lock-in is the real gravity
+
+Here is the part that made this topic feel less like research Twitter and more like industrial strategy.
+
+Even if state-space math is compelling, the world is not a blank slate. The global AI stack is deeply optimized around transformer workloads and CUDA-centric kernels.
+
+That means new architectures face two adoption barriers at once:
+
+- proving theoretical and benchmark merit,
+- proving production efficiency on hardware and software pipelines tuned for something else.
+
+This is why "better architecture" can still lose for years.
+
+History repeats this pattern all the time. VHS beat technically better formats. QWERTY survived arguably better keyboard designs. Compatibility inertia is powerful.
+
+So for SSMs, the challenge is not only sequence modeling quality. It is ecosystem migration cost.
+
+Who pays to rebuild kernels, optimize compiler paths, retrain infra teams, and rewrite serving assumptions?
+
+If that migration tax is too high, adoption slows no matter how elegant the theory looks.
+
+## Bear case: hybrids win, pure alternatives stay niche
+
+A realistic bear case is not "SSMs fail completely."
+
+It is this:
+
+- pure SSM stacks stay specialized,
+- transformers keep dominating mainstream serving,
+- hybrids absorb the practical benefits where they matter.
+
+From a startup perspective, this still leaves opportunity.
+
+But the opportunity may be less about launching a replacement model and more about owning transition infrastructure:
+
+- routing layers that pick architecture by task shape,
+- observability systems tuned for mixed-model serving,
+- compiler/runtime tooling for non-transformer inference.
+
+That might sound less exciting than announcing a new foundation model.
+
+It might also be where durable value accumulates.
+
+## Open question
+
+If long-context demand keeps rising, will the market actually fund architecture migration at ecosystem scale, or will we continue to patch transformer economics with better kernels and infrastructure tricks until something breaks?
+
+## A realistic 24-month scenario map
+
+If I had to model where this goes over two years, I would sketch three outcomes.
+
+Scenario A: transformer dominance with incremental efficiency
+
+- better kernels,
+- quantization improvements,
+- smarter attention variants,
+- infra-level optimization.
+
+This is the path of least resistance because existing tools and teams already fit it.
+
+Scenario B: hybrid mainstream
+
+- transformer blocks for flexible reasoning,
+- state-space components for long-sequence throughput,
+- architecture selected by workload class.
+
+This is the path I think is most likely because it captures economic gains without demanding full ecosystem rewrite.
+
+Scenario C: full architecture transition
+
+- non-transformer-first stacks become default in long-context domains,
+- hardware/software ecosystem catches up,
+- new infra leaders emerge around serving and tooling.
+
+Possible, but requires coordinated ecosystem shifts that are usually slower than social media optimism.
+
+From a VC angle, Scenario B seems the most investable: less binary risk, clear migration pain, and room for tooling startups.
+
+## Founder checklist before betting on architecture
+
+Before choosing a foundation architecture strategy, I would ask:
+
+1. Is long-context behavior mission-critical for my product, or just nice to have?
+2. What is my projected serving cost at 10x usage under each architecture choice?
+3. Does my team have the infra talent to own architecture complexity, or should we stay close to commodity stacks?
+4. What is my fallback plan if the ecosystem around my chosen path matures slower than expected?
+
+This is where many teams get trapped.
+
+They make architecture choices based on peak benchmark narratives instead of operating constraints.
+
+Peak quality matters.
+
+Sustained deployability matters more.
+
 ## Closing thought
 
 The last two years made many of us assume scale alone solves everything.

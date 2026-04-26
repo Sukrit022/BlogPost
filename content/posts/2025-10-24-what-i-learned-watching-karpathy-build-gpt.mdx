@@ -1,0 +1,185 @@
+---
+title: "What I Learned Watching Andrej Karpathy Build a GPT"
+date: "2025-10-24"
+excerpt: "Everyone talks about GPTs like magic. Watching one get built from a tiny dumb model upward made the whole thing feel less mystical and more engineering."
+tags:
+  - research-simplified
+  - llm-basics
+  - technical-intuition
+---
+
+Everyone has an opinion about GPTs.
+
+Very few people have sat through what the model pipeline actually looks like from the inside.
+
+Watching Andrej Karpathy build a GPT from scratch was weirdly calming for me because it removed the aura. You see each step. You see what gets better and why. You also see what stays fundamentally simple underneath all the scale.
+
+Maybe I am oversimplifying, but that series did more for my intuition than a lot of polished explainers.
+
+## Step 1: the painfully dumb Bigram model
+
+Karpathy starts with a bigram model, which is about as simple as it gets. It predicts the next token based only on the current token.
+
+If you are texting a friend and they type "Let us meet at", a bigram-style predictor just asks: what usually follows "at" in training data? It has almost no memory beyond local pattern frequency.
+
+That gives you a useful baseline:
+
+- simple pattern matching,
+- no long-term context,
+- quickly runs into nonsense on longer generations.
+
+This was important for me because it makes clear that "next-token prediction" is not fake marketing language. It is literally the core game.
+
+## Step 2: adding layers that actually learn richer patterns
+
+Then things get interesting.
+
+When you add trainable layers (like a linear layer and deeper transformations), the model is no longer stuck with local lookup behavior. It can reshape internal representations and map token context to better predictions.
+
+The model is still doing next-token prediction, but with a better internal lens.
+
+A good way I think about it:
+
+- bigram is like autocomplete with almost no memory,
+- deeper learned layers are like autocomplete that has started understanding sentence structure and style cues.
+
+Not "understanding" the way humans understand, but definitely extracting much richer statistical structure.
+
+## Step 3: self-attention is where scale starts to matter
+
+Self-attention was the "oh, okay" moment.
+
+Instead of only looking at nearby tokens, the model can weigh which earlier tokens matter for the current prediction. That dynamic weighting is what lets it keep track of relationships across a sequence.
+
+If your text says:
+
+"Ravi dropped the glass because it was slippery."
+
+The model needs context to link "it" correctly. Attention helps the system decide which earlier words deserve focus for that prediction step.
+
+Once this mechanism is stacked and scaled with enough data and compute, behavior jumps from toy text generation to something that feels flexible and surprisingly coherent.
+
+Still, the core loop never changed: predict next token, repeat.
+
+## The main intuition I took away
+
+Large language models are not magic brains.
+
+They are highly optimized statistical engines trained to predict the next token under huge amounts of context.
+
+That sounds less romantic than AGI headlines, but I think it is the right anchor for builders.
+
+If you start from this frame, a lot of practical decisions become clearer:
+
+- why data quality matters so much,
+- why context windows and attention behavior matter,
+- why evaluation is tricky,
+- why scaling works until it does not.
+
+And maybe most importantly, it keeps you humble. The outputs can feel astonishing, but the mechanism is still grounded in optimization and probability, not mystical reasoning energy.
+
+## What this changes for founders
+
+Demystifying the model stack has a business consequence.
+
+If you stop treating LLMs like magic, you stop building products that rely on vibes.
+
+You start asking boring but powerful questions:
+
+- Where exactly does quality break in my workflow?
+- Which part is model weakness vs context design weakness?
+- What should be solved with better prompts vs better retrieval vs better verification?
+- Where does margin disappear in the serving loop?
+
+This mindset shift is underrated.
+
+A lot of fragile AI products are basically magic-thinking products. They assume "smarter base model" will fix architecture mistakes.
+
+Sometimes it does.
+
+Often it does not.
+
+## Bear case: next-token framing can be overused
+
+There is also a fair counter-argument.
+
+If we repeat "it is just next-token prediction" too casually, we can understate emergent behavior and planning ability that appears at scale.
+
+So the right takeaway is not to minimize model capability.
+
+It is to anchor capability in mechanism.
+
+That balance matters:
+
+- too much mysticism leads to sloppy product decisions,
+- too much reductionism can make you miss real qualitative shifts in behavior.
+
+Maybe I am overcomplicating this, but I think good builders hold both truths at once.
+
+The engine is statistical.
+
+The resulting behavior can still be strategically powerful.
+
+## Open question
+
+As models become more agentic and tool-aware, does next-token prediction remain the best mental model for product design decisions, or do we need a new practical abstraction that maps better to multi-step autonomous behavior?
+
+## Two-year founder lens
+
+If I project this out a bit, I think this "de-mystification" skill becomes a hiring and product advantage.
+
+Teams that can reason from mechanism will:
+
+- debug failures faster,
+- avoid magical thinking in roadmap planning,
+- allocate infra spend more rationally,
+- build evaluation loops that match model behavior.
+
+Teams that cannot will keep cycling through model upgrades and prompt tweaks without fixing structural issues.
+
+So yes, this started as a technical curiosity post for me.
+
+It ended up feeling like a leadership lesson: understand the machine at the level where decisions are made, not where marketing slogans are made.
+
+## The counterfactual I keep thinking about
+
+What if more startup teams had this bottom-up model intuition early?
+
+I think we would see fewer products built on fragile assumptions like:
+
+- "the model will infer intent anyway,"
+- "hallucinations are mostly prompt issues,"
+- "cost drops will automatically solve margin pressure,"
+- "evaluation can wait until after launch."
+
+When you watch the model stack get assembled piece by piece, those assumptions look less credible.
+
+You realize behavior is conditioned by architecture, training data, objective functions, and context handling. There is no free capability layer floating above engineering constraints.
+
+This has practical consequences for hiring too.
+
+I would prioritize people who can reason across layers:
+
+- model behavior,
+- product requirements,
+- infra economics,
+- reliability tradeoffs.
+
+Not just people who can write nice prompts.
+
+## A blunt product design rule I now use
+
+Whenever an AI feature seems magical in a demo, I ask one irritating question:
+
+"Which part of this behavior is robust if user input gets messy, context grows long, and cost constraints tighten?"
+
+If we cannot answer clearly, the feature is still prototype-stage no matter how impressive it looks.
+
+That question has saved me from overcommitting to shiny capabilities more than once.
+
+The next time someone says "GPT is basically a black box miracle," I am probably still going to nod politely. Then I will remember that dumb bigram model and smile a little.
+
+### Light references
+
+- Andrej Karpathy, "Let's build GPT" video + accompanying code walkthrough.
+- Vaswani et al., "Attention Is All You Need" for the original transformer attention architecture.

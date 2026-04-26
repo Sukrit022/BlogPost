@@ -101,6 +101,127 @@ But the payoff is real:
 
 For production systems, those are not "nice to have." They are the difference between demo quality and deployable quality.
 
+## The hidden problem: cost can explode quietly
+
+There is a financial catch people skip in demos.
+
+A one-shot prompt might make 1 model call.
+
+An agentic flow with planner, retriever, coder, critic, and verifier can make 20-40 calls for one user task.
+
+If each call is small, this feels harmless at first.
+
+At scale, margin math changes quickly.
+
+This is where many startups get surprised:
+
+- great output quality,
+- strong early adoption,
+- weak gross margin once real usage patterns arrive.
+
+So orchestration quality must include call-budget discipline.
+
+Useful safeguards:
+
+- hard step limits,
+- selective escalation to expensive models,
+- early-stop conditions when confidence is sufficient,
+- caching of intermediate artifacts.
+
+Without this, agentic UX can become financially unsustainable.
+
+## Business model implication: stop pricing like a static SaaS tool
+
+If your AI behaves more like a coworker than a feature, seat-based monthly pricing can misalign value and cost.
+
+I think we will see more outcome-linked models:
+
+- per bug resolved,
+- per ticket closed,
+- per qualified report produced,
+- per workflow completed under SLA.
+
+This aligns incentives better than generic subscriptions for high-variance agent usage.
+
+It also makes buyers compare AI workers against labor alternatives, not against software line items.
+
+That framing can unlock budget.
+
+## Bear case: orchestration debt becomes the new technical debt
+
+Classic software debt is code complexity.
+
+Agentic debt is decision-path complexity.
+
+As workflows grow, teams accumulate brittle state transitions, undocumented tool assumptions, and silent failure modes.
+
+If observability is weak, debugging can become guesswork.
+
+So the second-order lesson is clear:
+
+the more autonomous your workflow becomes, the more your core competency must shift toward reliability engineering.
+
+## Open question
+
+Over the next two years, will winners in agentic software be the teams with the best model prompts, or the teams with the strongest workflow economics and reliability infrastructure?
+
+## A maturity model that avoids common traps
+
+If I map this into phases, most teams I see are somewhere between phase one and two:
+
+Phase 1: prompt-first automation
+
+- one-shot calls,
+- minimal state,
+- fast prototyping,
+- high hidden failure rate.
+
+Phase 2: orchestrated workflows
+
+- explicit step boundaries,
+- tool contracts,
+- retries and fallbacks,
+- moderate observability.
+
+Phase 3: governed agent systems
+
+- policy-aware execution,
+- per-step auditability,
+- cost controls as first-class constraints,
+- measurable reliability SLAs.
+
+The jump from phase two to three is where many products either become enterprise-grade or stall.
+
+## What I would instrument from day one
+
+For teams serious about agentic products, I would track these four metrics weekly:
+
+1. cost per successful workflow,
+2. retry depth distribution,
+3. human-intervention rate,
+4. post-delivery correction rate.
+
+Without this, it is easy to confuse "agent activity" with "agent productivity."
+
+Activity is cheap to fake.
+
+Outcomes are not.
+
+## Organizational effect most teams miss
+
+Agentic products also change who your best people are.
+
+The highest leverage moves from pure prompt craft toward:
+
+- workflow decomposition,
+- reliability operations,
+- cost governance,
+- incident response discipline.
+
+So the team shape shifts from "prompt experts" to "AI operations engineers" over time.
+
+That transition can be the difference between an impressive prototype and a durable business.
+
 ## Where this is going
 
 I think the next year of AI products will reward teams that are good at workflow architecture.

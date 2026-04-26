@@ -102,6 +102,109 @@ That could reshape where value accrues:
 
 Founders building "reasoning-first" products will need very tight cost control, or margins can disappear quickly.
 
+## System 1 vs System 2 product design
+
+One mental model that helped me is borrowing from human cognition analogies.
+
+- System 1 style behavior: fast, cheap, pattern-completion oriented.
+- System 2 style behavior: slower, deliberative, higher-compute reasoning.
+
+In AI product terms, this creates a segmentation decision.
+
+Consumer chat experiences usually punish waiting.
+
+Enterprise analysis tools can tolerate delay if output quality materially improves business decisions.
+
+So a 25-second answer can be terrible UX in a consumer app and premium UX in a due-diligence workflow.
+
+Same model.
+Different economics.
+
+## Where value accrues if this trend holds
+
+If reasoning depth at inference becomes the differentiator, then value may migrate toward layers that manage that complexity:
+
+- intelligent routers deciding when to spend expensive reasoning,
+- confidence estimation systems that avoid unnecessary long chains,
+- latency-aware UX patterns that keep users engaged during compute-heavy responses,
+- post-reasoning verifiers that reduce expensive false confidence.
+
+The startup moat is no longer "I have model access."
+
+It becomes "I can allocate reasoning budget better than competitors."
+
+## Bear case: latency wall and user trust erosion
+
+There is a hard bear case too.
+
+If deeper reasoning keeps increasing latency and cost faster than users are willing to tolerate, teams may revert to fast-enough answers and stop paying for expensive deliberation.
+
+That would compress premium inference margins and push the market toward hybrid strategies by force.
+
+Also, longer reasoning traces are not automatically safer. A model can spend more compute inside a wrong premise and produce higher-confidence errors.
+
+So quality gains must be measured, not assumed.
+
+## Open question
+
+Will the next generation of successful AI products be defined by the smartest base model, or by the best "reasoning budget managers" that decide when to think deeply and when to answer fast?
+
+## Workload stratification will probably define winners
+
+I suspect high-performing products will separate tasks into compute tiers very aggressively.
+
+Tier 1: instant response tasks
+
+- autocomplete,
+- short rewriting,
+- low-risk summarization.
+
+Tier 2: moderate deliberation tasks
+
+- structured analysis,
+- constrained planning,
+- multi-source synthesis.
+
+Tier 3: expensive reasoning tasks
+
+- high-stakes decisions,
+- compliance-sensitive outputs,
+- complex technical debugging.
+
+If every request goes to Tier 3, margins collapse.
+
+If nothing goes to Tier 3, quality ceiling appears fast.
+
+So the product moat becomes routing intelligence plus trust calibration.
+
+## Where startup value might emerge
+
+If this thesis holds, interesting startup opportunities appear in:
+
+- low-latency confidence estimators,
+- dynamic inference policy engines,
+- billing-aware orchestration layers,
+- UX systems that make waiting tolerable when compute depth is justified.
+
+These are not flashy categories yet.
+
+They might become essential infrastructure if reasoning-heavy inference becomes standard.
+
+## What I would test in a pilot
+
+For any reasoning-first product, I would run one strict pilot question:
+
+Does deeper inference improve business outcomes enough to justify added latency and spend?
+
+Track:
+
+- decision quality deltas,
+- user completion rates,
+- cost per high-confidence output,
+- willingness to pay for "slow but better" mode.
+
+If those numbers do not move, depth is just expensive theater.
+
 ## Closing thought
 
 For the last few years, we asked: "How much did the model learn before launch?"
