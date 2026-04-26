@@ -23,14 +23,7 @@ export default async function Home() {
         </p>
       </section>
 
-      <section className="grid gap-6 rounded-2xl border border-border/70 bg-card p-6 md:grid-cols-[1.1fr_1fr]">
-        <div className="space-y-3">
-          <h2 className="font-display text-2xl text-foreground">About Sukrit</h2>
-          <p className="leading-7 text-muted">
-            I&apos;m a college student trying to get less impressed by demos and more curious about what is actually durable.
-            Most of these notes are from late-night rabbit holes around model behavior, startup moats, and evaluation gaps.
-          </p>
-        </div>
+      <section className="rounded-2xl border border-border/70 bg-card p-6">
         <div className="space-y-3">
           <p className="text-sm uppercase tracking-[0.14em] text-muted">Current curiosity list</p>
           <ul className="space-y-2 text-sm leading-6 text-muted">
